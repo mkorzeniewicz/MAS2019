@@ -8,35 +8,27 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author Mariusz Trzaska
- */
 public abstract class ObjectPlus implements Serializable {
 	private static Map<Class, ArrayList<ObjectPlus>> allExtents = new Hashtable<>();
 
-	/**
-	 * Constructor.
-	 */
 	public ObjectPlus() {
 		ArrayList extent = null;
 		Class theClass = this.getClass();
-		
-		if(allExtents.containsKey(theClass)) {
-			// An extent of this class already exist
+
+		if (allExtents.containsKey(theClass)) {
 			extent = allExtents.get(theClass);
-		}
-		else {
-			// An extent does not exist - create a new one
+		} else {
 			extent = new ArrayList();
 			allExtents.put(theClass, extent);
 		}
-		
+
 		extent.add(this);
 	}
-	
+
 	/**
 	 * Writes all extents to the given stream (a class method).
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public static void writeExtents(ObjectOutputStream stream) throws IOException {
 		stream.writeObject(allExtents);
@@ -44,40 +36,40 @@ public abstract class ObjectPlus implements Serializable {
 
 	/**
 	 * Reads all extents from the given stream (a utility class method).
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
+	 * 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 */
 	public static void readExtents(ObjectInputStream stream) throws IOException, ClassNotFoundException {
 		allExtents = (Hashtable) stream.readObject();
-	}	
-	
+	}
+
 	/**
 	 * Shows an extent of the given class (a utility class method)
+	 * 
 	 * @throws Exception
 	 */
 	public static void showExtent(Class theClass) throws Exception {
 		ArrayList extent = null;
-		
-		if(allExtents.containsKey(theClass)) {
+
+		if (allExtents.containsKey(theClass)) {
 			// Extent of this class already exist
 			extent = allExtents.get(theClass);
-		}
-		else {
+		} else {
 			throw new Exception("Unknown class " + theClass);
 		}
-		
+
 		System.out.println("Extent of the class: " + theClass.getSimpleName());
 
-		for(Object obj : extent) {
+		for (Object obj : extent) {
 			System.out.println(obj);
 		}
 	}
-	
+
 	public static List<ObjectPlus> getExtent(Class theClass) {
-		if(allExtents.containsKey(theClass)) {
+		if (allExtents.containsKey(theClass)) {
 			return allExtents.get(theClass);
-		}
-		else {
+		} else {
 			return new ArrayList<>();
 		}
 	}

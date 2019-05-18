@@ -11,16 +11,18 @@ import java.util.UUID;
 public class Worker extends ObjectPlus implements Serializable {
 
 	private static final long serialVersionUID = 537418369606124629L;
-	
+
 	/**
 	 * Atrybut klasowy
 	 */
-	private static final float VAT = 0.23f; 
-	
+	private static final float VAT = 0.23f;
+
 	private UUID id;
 	private String firstName;
 	private String lastName;
 	private String NIP;
+	private float salary;
+	private boolean UOP;
 	/**
 	 * Atrybut złożony
 	 */
@@ -34,13 +36,14 @@ public class Worker extends ObjectPlus implements Serializable {
 	 */
 	private List<Certificate> certificates = new ArrayList<>();
 
-	public Worker(String firstName, String lastName, LocalDate birthDate) {
+	public Worker(String firstName, String lastName, LocalDate birthDate, long salary) {
 		this.id = UUID.randomUUID();
+		this.salary = salary;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 	}
-	
+
 	/**
 	 * Przeciążenie konstruktora
 	 * 
@@ -49,27 +52,24 @@ public class Worker extends ObjectPlus implements Serializable {
 	 * @param birthDate
 	 * @param NIP
 	 */
-	public Worker(String firstName, String lastName, LocalDate birthDate, String NIP) { 
-		this(firstName, lastName, birthDate);
+	public Worker(String firstName, String lastName, LocalDate birthDate, long salary, String NIP) {
+		this(firstName, lastName, birthDate, salary);
 		this.NIP = NIP;
 	}
-	
+
 	/**
 	 * Metoda klasowa
 	 * 
 	 * @return
 	 */
-	public static Worker getYoungest() throws Exception { 
+	public static Worker getYoungest() throws Exception {
 		List<ObjectPlus> workers = ObjectPlus.getExtent(Worker.class);
 		if (workers.isEmpty()) {
 			throw new Exception("No workers");
 		}
-		return workers.stream()
-				.map(e -> (Worker)e)
-				.min(Comparator.comparing(Worker::getAge))
-				.get();
+		return workers.stream().map(e -> (Worker) e).min(Comparator.comparing(Worker::getAge)).get();
 	}
-	
+
 	/**
 	 * Atrybut pochodny
 	 * 
@@ -78,15 +78,15 @@ public class Worker extends ObjectPlus implements Serializable {
 	public int getAge() {
 		return (int) birthDate.until(LocalDate.now(), ChronoUnit.YEARS);
 	}
-	
+
 	/**
 	 * Przesłonięcie
 	 */
 	@Override
 	public String toString() {
-		return id + ": " + firstName + " " + lastName + ", no.certificates:" + certificates.size(); 
+		return id + ": " + firstName + " " + lastName + ", no.certificates:" + certificates.size();
 	}
-	
+
 	/**
 	 * Przesłonięcie
 	 */
@@ -105,7 +105,7 @@ public class Worker extends ObjectPlus implements Serializable {
 			System.out.println("Nie ma obiektów tej klasy");
 		}
 	}
-	
+
 	public UUID getId() {
 		return id;
 	}
@@ -136,5 +136,29 @@ public class Worker extends ObjectPlus implements Serializable {
 
 	public void setCertificates(List<Certificate> certificates) {
 		this.certificates = certificates;
+	}
+
+	/**
+	 * Przypadek użycia atrybutu klasowego
+	 * 
+	 * @return
+	 */
+	public float getSalary() {
+		if (UOP) {
+			return salary + salary * VAT;
+		}
+		return salary;
+	}
+
+	public void setSalary(float salary) {
+		this.salary = salary;
+	}
+
+	public boolean isUOP() {
+		return UOP;
+	}
+
+	public void setUOP(boolean uOP) {
+		UOP = uOP;
 	}
 }
