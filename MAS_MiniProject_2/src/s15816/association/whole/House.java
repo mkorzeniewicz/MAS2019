@@ -36,7 +36,7 @@ public class House {
 	public class Room {
 		private String name;
 
-		public Room(String name) {
+		private Room(String name) {
 			this.name = name;
 		}
 		

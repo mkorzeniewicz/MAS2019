@@ -2,8 +2,6 @@ package s15816.main;
 
 import java.util.Arrays;
 
-import javax.sound.midi.Soundbank;
-
 import s15816.association.qualif.AvailableCourse;
 import s15816.association.qualif.Course;
 import s15816.association.qualif.Student;

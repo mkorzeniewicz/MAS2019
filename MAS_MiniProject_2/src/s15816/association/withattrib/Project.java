@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import s15816.association.normal.onetomany.Bulletin;
-
 public class Project {
 	private String name;
 
