@@ -3,7 +3,7 @@ package s15816.association.normal.onetomany;
 public class Bulletin {
 	private String name;
 	private String content;
-	
+
 	private Paper paper;
 
 	public Bulletin(String name, String content) {
@@ -16,7 +16,7 @@ public class Bulletin {
 		this.content = content;
 		this.paper = paper;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -39,18 +39,24 @@ public class Bulletin {
 
 	public void setPaper(Paper paper) {
 		if (paper == null) {
-			this.paper = paper;
-			paper.addBulletin(this);
+			this.paper.removeBulletin(this);
+			this.paper = null;
 		} else {
-			System.out.println("Association cannot be saved." + this.name + " already is associated with paper " + this.paper.getName());
+			if (this.paper == null) {
+				this.paper = paper;
+				paper.addBulletin(this);
+			} else {
+				System.out.println("Association cannot be saved. " + this.name + " already is associated with " + this.paper.getName());
+			}
 		}
-		
 	}
 
 	@Override
 	public String toString() {
-		return "Bulletin \n\tname=" + name + "\n\tcontent=" + content + "\n\tpaper=" + paper.getName();
+		if (this.paper == null) {
+			return name;
+		}
+		return name + " in " + this.paper.getName();
 	}
-	
-	
+
 }

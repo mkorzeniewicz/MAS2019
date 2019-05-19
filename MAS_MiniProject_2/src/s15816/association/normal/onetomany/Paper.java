@@ -2,6 +2,7 @@ package s15816.association.normal.onetomany;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Paper {
 	private String name;
@@ -19,13 +20,22 @@ public class Paper {
 
 	public Paper(String name, List<Bulletin> bulletins) {
 		this.name = name;
-		this.bulletins.addAll(bulletins);
+		for (Bulletin bulletin : bulletins) {
+			addBulletin(bulletin);
+		}
 	}
 
 	public void addBulletin(Bulletin bulletin) {
 		if (!bulletins.contains(bulletin)) {
 			bulletins.add(bulletin);
 			bulletin.setPaper(this);
+		}
+	}
+	
+	public void removeBulletin(Bulletin bulletin) {
+		if (bulletins.contains(bulletin)) {
+			bulletins.remove(bulletin);
+			bulletin.setPaper(null);
 		}
 	}
 	
@@ -43,7 +53,7 @@ public class Paper {
 
 	@Override
 	public String toString() {
-		return "Paper \n\tname=" + name + "\n\tbulletins=" + bulletins;
+		return name + ":\n\tbulletins=" + bulletins.stream().map(b->b.getName()).collect(Collectors.toList());
 	}
 	
 }
