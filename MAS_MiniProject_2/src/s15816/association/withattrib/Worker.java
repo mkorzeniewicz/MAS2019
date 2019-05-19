@@ -7,35 +7,35 @@ import java.util.stream.Collectors;
 public class Worker {
 	private String name;
 	
-	private List<ProjectWorker> projects = new ArrayList<>();
+	private List<ProjectWorker> projectWorkers = new ArrayList<>();
 
 	public Worker(String name) {
 		this.name = name;
 	}
 	
-	public Worker(String name, ProjectWorker project) {
+	public Worker(String name, ProjectWorker projectWorker) {
 		this.name = name;
-		this.projects.add(project);
+		addProjectWorker(projectWorker);
 	}
 
-	public Worker(String name, List<ProjectWorker> projects) {
+	public Worker(String name, List<ProjectWorker> projectWorkers) {
 		this.name = name;
-		for (ProjectWorker project : projects) {
-			addProject(project);
+		for (ProjectWorker projectWorker : projectWorkers) {
+			addProjectWorker(projectWorker);
 		}
 	}
 
-	public void addProject(ProjectWorker project) {
-		if (!projects.contains(project)) {
-			projects.add(project);
-			project.addWorker(this);
+	public void addProjectWorker(ProjectWorker projectWorker) {
+		if (!projectWorkers.contains(projectWorker)) {
+			projectWorkers.add(projectWorker);
+			projectWorker.setWorker(this);
 		}
 	}
 	
-	public void removeProject(ProjectWorker project) {
-		if (projects.contains(project)) {
-			projects.remove(project);
-			project.removeWorker(this);
+	public void removeProjectWorker(ProjectWorker projectWorker) {
+		if (projectWorkers.contains(projectWorker)) {
+			projectWorkers.remove(projectWorker);
+			projectWorker.setWorker(null);
 		}
 	}
 	
@@ -49,6 +49,6 @@ public class Worker {
 
 	@Override
 	public String toString() {
-		return name + ":\n\tprojects=" + projects.stream().map(b->b.getProject().getName()).collect(Collectors.toList());
+		return name + ":\n\tprojectWorkers=" + projectWorkers + "\n\tprojects=" + projectWorkers.stream().map(b->b.getProject().getName()).collect(Collectors.toList());
 	}
 }

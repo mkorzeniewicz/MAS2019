@@ -2,7 +2,16 @@ package s15816.main;
 
 import java.util.Arrays;
 
+import javax.sound.midi.Soundbank;
 
+import s15816.association.qualif.AvailableCourse;
+import s15816.association.qualif.Course;
+import s15816.association.qualif.Student;
+import s15816.association.whole.House;
+import s15816.association.whole.House.Room;
+import s15816.association.withattrib.Project;
+import s15816.association.withattrib.ProjectWorker;
+import s15816.association.withattrib.Worker;
 
 /**
  * @author s15816 Michał Korzeniewicz
@@ -26,8 +35,8 @@ public class Main {
 
 		testNormalAssociation();
 		testAssociationWithAttrib();
-		testQualifiedAssociation();
-		testComposition();
+		testAssociationWithQualif();
+		testAssociationWholePart();
 		
 	}
 
@@ -91,18 +100,67 @@ public class Main {
 	}
 
 	private static void testAssociationWithAttrib() {
-		s15816.association.withattrib.Project project_1 = new s15816.association.withattrib.Project("project_1");
 		
-		s15816.association.withattrib.Worker worker_1 = new s15816.association.withattrib.Worker("worker_1");
+		System.out.println("-----------WITH ATTRIB----------");
+		System.out.println();
 		
-		project_1.addWorker(worker_1);
+		Project project_1 = new Project("project_1");
+		Worker worker_1 = new Worker("worker_1");
+		ProjectWorker projectWorker_1 = new ProjectWorker(project_1, worker_1);
+		
+		System.out.println(project_1);
+		System.out.println();
+		System.out.println(projectWorker_1);
+		System.out.println();
+		System.out.println(worker_1);
+		System.out.println();
+		System.out.println();
+	}
+	
+	private static void testAssociationWithQualif() {
+
+		System.out.println("-----------Association Qualif----------");
+		System.out.println();
+		
+		Course course_1 = new Course(AvailableCourse.Mathematics, "course_1");
+		Course course_2 = new Course(AvailableCourse.Language, "course_2");
+		Student student_1 = new Student("s15816", "student_1");
+		
+		course_1.addStudent(student_1);
+		student_1.addCourse(course_2);
+		
+		System.out.println();
+		System.out.println(course_1);
+		System.out.println();
+		System.out.println(student_1);
+		System.out.println();
+		
+		Course course = student_1.findCourseByQualif(AvailableCourse.Mathematics);
+		System.out.println("Founded course:");
+		System.out.println(course);
 	}
 
-	private static void testQualifiedAssociation() {
-		
-	}
+	private static void testAssociationWholePart() {
 
-	private static void testComposition() {
+		System.out.println();
+		System.out.println("-----------Whole part----------");
+		System.out.println();
+		
+		/*
+		 * 1.Część nie może istnieć bez całości - prywatny kontruktor
+		 * 2.Cześć nie może być współdzielona pomiędzy całościami - brak metody dodającej istniejącą część do całości
+		 * 3.Część zostaje usunięta przy usuwaniu całości - nie możliwe do realizacji z Javą
+		 */
+		
+		House house_1 = new House("house_1");
+		Room room_1 = house_1.createRoom("room_1");
+		Room room_2 = house_1.createRoom("room_2");
+		
+		System.out.println(house_1);
+		
+		house_1.removeRoom(room_1);
+		
+		System.out.println(house_1);
 		
 	}
 

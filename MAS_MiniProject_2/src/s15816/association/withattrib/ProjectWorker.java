@@ -7,9 +7,10 @@ public class ProjectWorker {
 	private Worker worker;
 
 	public ProjectWorker(Project project, Worker worker) {
-		super();
 		this.project = project;
 		this.worker = worker;
+		project.addProjectWorker(this);
+		worker.addProjectWorker(this);
 	}
 
 	public long getSalary() {
@@ -54,5 +55,10 @@ public class ProjectWorker {
 				System.out.println("Association cannot be saved.");
 			}
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return project.getName() + ":" + worker.getName();
 	}
 }

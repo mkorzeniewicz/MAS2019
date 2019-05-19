@@ -27,17 +27,17 @@ public class Project {
 		}
 	}
 
-	public void addProjectWorker(Bulletin bulletin) {
-		if (!bulletins.contains(bulletin)) {
-			bulletins.add(bulletin);
-			bulletin.setPaper(this);
+	public void addProjectWorker(ProjectWorker projectWorker) {
+		if (!projectWorkers.contains(projectWorker)) {
+			projectWorkers.add(projectWorker);
+			projectWorker.setProject(this);
 		}
 	}
 	
-	public void removeProjectWorker(Bulletin bulletin) {
-		if (bulletins.contains(bulletin)) {
-			bulletins.remove(bulletin);
-			bulletin.setPaper(null);
+	public void removeProjectWorker(ProjectWorker projectWorker) {
+		if (projectWorkers.contains(projectWorker)) {
+			projectWorkers.remove(projectWorker);
+			projectWorker.setProject(null);
 		}
 	}
 	
@@ -49,13 +49,13 @@ public class Project {
 		this.name = name;
 	}
 
-	public List<Bulletin> getBulletins() {
-		return bulletins;
+	public List<ProjectWorker> getProjectWorkers() {
+		return projectWorkers;
 	}
 
 	@Override
 	public String toString() {
-		return name + ":\n\tbulletins=" + bulletins.stream().map(b->b.getName()).collect(Collectors.toList());
+		return name + ":\n\tprojectWorkers=" + projectWorkers + "\n\tworkers=" + projectWorkers.stream().map(b->b.getWorker().getName()).collect(Collectors.toList());
 	}
 	
 }

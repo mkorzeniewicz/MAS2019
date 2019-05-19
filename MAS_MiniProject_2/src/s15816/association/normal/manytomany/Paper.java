@@ -15,7 +15,7 @@ public class Paper {
 	
 	public Paper(String name, Bulletin bulletin) {
 		this.name = name;
-		this.bulletins.add(bulletin);
+		addBulletin(bulletin);
 	}
 
 	public Paper(String name, List<Bulletin> bulletins) {
@@ -33,6 +33,10 @@ public class Paper {
 	}
 	
 	public void removeBulletin(Bulletin bulletin) {
+		if (bulletin == null) {
+			System.out.println("Object cannot be null");
+			return;
+		}
 		if (bulletins.contains(bulletin)) {
 			bulletins.remove(bulletin);
 			bulletin.removePaper(this);

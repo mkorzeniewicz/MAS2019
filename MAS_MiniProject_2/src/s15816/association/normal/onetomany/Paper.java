@@ -26,6 +26,10 @@ public class Paper {
 	}
 
 	public void addBulletin(Bulletin bulletin) {
+		if (bulletin == null) {
+			System.out.println("Associated object cannot be null");
+			return;
+		}
 		if (!bulletins.contains(bulletin)) {
 			bulletins.add(bulletin);
 			bulletin.setPaper(this);
@@ -33,6 +37,10 @@ public class Paper {
 	}
 	
 	public void removeBulletin(Bulletin bulletin) {
+		if (bulletin == null) {
+			System.out.println("Object cannot be null");
+			return;
+		}
 		if (bulletins.contains(bulletin)) {
 			bulletins.remove(bulletin);
 			bulletin.setPaper(null);
