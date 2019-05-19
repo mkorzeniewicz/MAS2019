@@ -32,11 +32,13 @@ public class Main {
 	}
 
 	private static void testNormalAssociation() {
-		//testOneToMany();
+		testOneToMany();
 		testManyToMany();
 	}
 
 	private static void testOneToMany() {
+		System.out.println("\n\n---------------ONE TO MANY-------------\n");
+		
 		//creating paper with bulletins
 		s15816.association.normal.onetomany.Bulletin bulletin_1 = new s15816.association.normal.onetomany.Bulletin("bulletin_1", "bulettin_1_content");
 		s15816.association.normal.onetomany.Bulletin bulletin_2 = new s15816.association.normal.onetomany.Bulletin("bulletin_2", "bulettin_2_content");
@@ -66,6 +68,9 @@ public class Main {
 	}
 
 	private static void testManyToMany() {
+		System.out.println("\n\n---------------MANY TO MANY-------------\n");
+		
+		//create
 		s15816.association.normal.manytomany.Bulletin bulletin_1 = new s15816.association.normal.manytomany.Bulletin("bulletin_1", "bulettin_1_content");
 		s15816.association.normal.manytomany.Bulletin bulletin_2 = new s15816.association.normal.manytomany.Bulletin("bulletin_2", "bulettin_2_content");
 		s15816.association.normal.manytomany.Paper paper_1 = new s15816.association.normal.manytomany.Paper("paper_1", Arrays.asList(bulletin_1, bulletin_2));
@@ -79,13 +84,18 @@ public class Main {
 		System.out.println();
 		System.out.println("Remove bulletin from paper_1");
 		
+		//remove
 		paper_1.removeBulletin(bulletin_1);
 		System.out.println(paper_1);
 		System.out.println(bulletin_1);
 	}
 
 	private static void testAssociationWithAttrib() {
+		s15816.association.withattrib.Project project_1 = new s15816.association.withattrib.Project("project_1");
 		
+		s15816.association.withattrib.Worker worker_1 = new s15816.association.withattrib.Worker("worker_1");
+		
+		project_1.addWorker(worker_1);
 	}
 
 	private static void testQualifiedAssociation() {
