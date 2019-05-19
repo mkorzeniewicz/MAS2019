@@ -1,5 +1,10 @@
 package s15816.main;
 
+import java.util.Arrays;
+
+import s15816.association.normal.onetomany.Bulletin;
+import s15816.association.normal.onetomany.Paper;
+
 /**
  * @author s15816 Michał Korzeniewicz
  *
@@ -28,6 +33,26 @@ public class Main {
 	}
 
 	private static void testNormalAssociation() {
+		testOneToMany();
+		testManyToMany();
+	}
+
+	private static void testOneToMany() {
+		//creating paper with bulletins
+		Bulletin bulletin_1 = new s15816.association.normal.onetomany.Bulletin("bulletin_1", "bulettin_1_content");
+		Bulletin bulletin_2 = new s15816.association.normal.onetomany.Bulletin("bulletin_2", "bulettin_2_content");
+		Paper paper_1 = new s15816.association.normal.onetomany.Paper("paper_1", Arrays.asList(bulletin_1, bulletin_2));
+		System.out.println(paper_1);
+		System.out.println(bulletin_1);
+		System.out.println(bulletin_2);
+		
+		Paper paper_2 = new s15816.association.normal.onetomany.Paper("paper_2");
+		bulletin_1.setPaper(paper_2);
+		
+		
+	}
+
+	private static void testManyToMany() {
 		
 	}
 
