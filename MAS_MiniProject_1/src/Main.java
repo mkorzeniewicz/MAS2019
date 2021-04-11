@@ -8,8 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+	
+	/*
+ 	Ekstensja
+	Ekst. - trwałość
+	Atr. złożony
+	Atr. opcjonalny
+	Atr. powt.
+	Atr. klasowy
+	Atr. pochodny
+	Met. klasowa
+	Przesłonięcie, przeciążenie
+	 */
+	
+	
+	/*
+	 Atrybut klasowy, złożony, opcjonalny, powtarzalny, Przeciążenie konstruktora,
+	  Metoda klasowa, Atrybut pochodny, Przesłonięcie, Przypadek użycia atrybutu klasowego
+	  Wszystkie przykłady zostały opisane w klasie Worker.
+	 
+	 */
 
-	private static final String FILE_PATH = "C:\\dev\\PJWSTK\\MAS2019\\extent.bin"; 
+	private static final String FILE_PATH = "C:\\dev\\MAS2019\\MAS_MiniProject_1\\extent.bin"; 
+	
 	
 	public static void main(String[] args) {
 		try {
